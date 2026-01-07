@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Rajdhani:wght@300;400;600&display=swap');
+
+    :root {
+      --space-dark: #0a0e17;
+      --neon-blue: #00f7ff;
+      --neon-purple: #b300ff;
+      --hud-green: #00ff88;
+      --alert-red: #ff2a6d;
+      --terminal-text: #e0e0e0;
+    }
+
+    body {
+      background-color: var(--space-dark);
+      font-family: 'Rajdhani', sans-serif;
+      color: var(--terminal-text);
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 20% 30%, rgba(0, 247, 255, 0.05) 0%, transparent 20%),
+        radial-gradient(circle at 80% 70%, rgba(179, 0, 255, 0.05) 0%, transparent 20%);
+    }
+
+    .hero-text {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--neon-blue);
+      font-size: clamp(2rem, 8vw, 4rem);
+      line-height: 1;
+      text-shadow: 0 0 10px var(--neon-blue);
+      letter-spacing: 2px;
+      margin-bottom: 2rem;
+    }
+
+    /* Result Container */
+    .result-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 20px;
+      background: rgba(10, 14, 23, 0.7);
+      border: 1px solid var(--neon-blue);
+      box-shadow: 0 0 20px rgba(0, 247, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .result-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, 
+        rgba(0, 247, 255, 0.05) 0%, 
+        rgba(179, 0, 255, 0.05) 100%);
+      z-index: -1;
+    }
+
+    /* Detection Image */
+    .detection-image {
+      width: 100%;
+      border: 1px solid var(--neon-purple);
+      box-shadow: 0 0 15px rgba(179, 0, 255, 0.3);
+      margin-bottom: 1.5rem;
+    }
+
+    /* SciFi Button */
+    .scifi-btn {
+      width: 220px;
+      height: 60px;
+      border-radius: 0;
+      background: linear-gradient(135deg, 
+        rgba(0, 247, 255, 0.2), 
+        rgba(179, 0, 255, 0.2));
+      border: 1px solid var(--neon-blue);
+      color: var(--terminal-text);
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 500;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      box-shadow: 0 0 20px rgba(0, 247, 255, 0.3);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      text-transform: uppercase;
+      margin: 1rem auto;
+      display: block;
+    }
+
+    .scifi-btn:hover {
+      background: linear-gradient(135deg, 
+        rgba(0, 247, 255, 0.3), 
+        rgba(179, 0, 255, 0.3));
+      box-shadow: 0 0 30px rgba(0, 247, 255, 0.5);
+      transform: translateY(-2px);
+      color: white;
+    }
+
+    /* Stats Panel */
+   
+
+    .stats-title {
+      color: var(--hud-green);
+      font-family: 'Orbitron', sans-serif;
+      border-bottom: 1px solid var(--hud-green);
+      padding-bottom: 5px;
+      margin-bottom: 10px;
+    }
+
+    /* Grid lines effect */
+    .grid-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(0, 247, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 247, 255, 0.1) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: -1;
+    }
+
+    /* Scanline effect */
+    .scanline {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(to bottom, 
+        transparent, 
+        rgba(0, 247, 255, 0.5), 
+        transparent);
+      animation: scan 8s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes scan {
+      0% { top: 0%; opacity: 0; }
+      1% { opacity: 1; }
+      99% { opacity: 1; }
+      100% { top: 100%; opacity: 0; }
+    }
+
+    /* Animated border */
+    .animated-border {
+      position: relative;
+    }
+
+    .animated-border::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, 
+        transparent, 
+        var(--neon-blue), 
+        var(--neon-purple), 
+        transparent);
+      animation: borderSlide 3s linear infinite;
+    }
+
+    @keyframes borderSlide {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .result-container {
+        padding: 15px;
+        margin: 1rem;
+      }
+      
+      .scifi-btn {
+        width: 100%;
+      }
+    }
+  </style>
+  <title>AI VISION | Detection Results</title>
+</head>
+
+<body>
+  <!-- Sci-Fi Background Elements -->
+  <div class="grid-bg"></div>
+  <div class="scanline"></div>
+
+  <div class="container py-5 animate__animated animate__fadeIn">
+    <div class="text-center">
+      <h1 class="hero-text">
+        DETECTION <span>RESULTS</span>
+      </h1>
+    </div>
+
+    <div class="result-container animated-border">
+      <img src="{{ url_for('get_prediction', filename=filename) }}" class="detection-image" alt="Processed Image">
+      
+      
+
+      <button onclick="window.location.href='/'" class="scifi-btn">
+        <i class="fas fa-arrow-left me-2"></i> RETURN TO DASHBOARD
+      </button>
+    </div>
+  </div>
+
+  <!-- Terminal-like footer -->
+  <div class="fixed-bottom bg-dark p-2" style="border-top: 1px solid var(--neon-blue);">
+    <div class="container">
+      <div class="d-flex justify-content-between">
+        <span class="text-muted">AI VISION SYSTEM v2.4.7</span>
+        <span class="text-muted" id="datetime"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Font Awesome for icons -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  
+  <script>
+    // Update datetime
+    function updateDateTime() {
+      const now = new Date();
+      const options = { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'short', 
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      };
+      document.getElementById('datetime').textContent = now.toLocaleDateString('en-US', options);
+    }
+    
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+    
+    // Add a cool effect when hovering the detection image
+    document.querySelector('.detection-image').addEventListener('mouseover', function() {
+      this.style.boxShadow = '0 0 25px rgba(179, 0, 255, 0.5)';
+      this.style.transition = 'all 0.3s ease';
+    });
+    
+    document.querySelector('.detection-image').addEventListener('mouseout', function() {
+      this.style.boxShadow = '0 0 15px rgba(179, 0, 255, 0.3)';
+    });
+  </script>
+</body>
+
+</html>
