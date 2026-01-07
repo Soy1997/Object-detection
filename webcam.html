@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Rajdhani:wght@300;400;600&display=swap');
+
+    :root {
+      --space-dark: #0a0e17;
+      --neon-blue: #00f7ff;
+      --neon-purple: #b300ff;
+      --hud-green: #00ff88;
+      --terminal-text: #e0e0e0;
+    }
+
+    body {
+      background-color: var(--space-dark);
+      font-family: 'Rajdhani', sans-serif;
+      color: var(--terminal-text);
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 20% 30%, rgba(0, 247, 255, 0.05) 0%, transparent 20%),
+        radial-gradient(circle at 80% 70%, rgba(179, 0, 255, 0.05) 0%, transparent 20%);
+    }
+
+    /* Sci-Fi Title */
+    .title {
+      text-align: center;
+      margin-top: 30px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      color: var(--neon-blue);
+      text-shadow: 0 0 10px var(--neon-blue);
+      letter-spacing: 2px;
+    }
+
+    /* Camera Container */
+    .camera-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 50px;
+      position: relative;
+    }
+
+    .camera-window {
+      width: 900px;
+      height: 600px;
+      border-radius: 5px;
+      overflow: hidden;
+      border: 2px solid var(--neon-blue);
+      box-shadow: 0 0 20px rgba(0, 247, 255, 0.3);
+      position: relative;
+    }
+
+    /* Perfect 3D Cube */
+    .scene {
+      width: 100px;
+      height: 100px;
+      perspective: 900px;
+      margin: 0 auto;
+    }
+
+    .cube {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: rotate 15s infinite linear;
+    }
+
+    .cube-face {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border: 2px solid var(--neon-purple);
+      box-shadow: 0 0 30px rgba(179, 0, 255, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+      font-family: 'Orbitron', sans-serif;
+      color: var(--neon-blue);
+      background: rgba(0, 0, 0, 0.7);
+      opacity: 0.9;
+      backface-visibility: visible;
+    }
+
+    .cube-face.front {
+      transform: rotateY(0deg) translateZ(100px);
+      background: rgba(0, 247, 255, 0.1);
+    }
+
+    .cube-face.back {
+      transform: rotateY(180deg) translateZ(100px);
+      background: rgba(179, 0, 255, 0.1);
+    }
+
+    .cube-face.right {
+      transform: rotateY(90deg) translateZ(100px);
+      background: rgba(0, 255, 136, 0.1);
+    }
+
+    .cube-face.left {
+      transform: rotateY(-90deg) translateZ(100px);
+      background: rgba(255, 0, 200, 0.1);
+    }
+
+    .cube-face.top {
+      transform: rotateX(90deg) translateZ(100px);
+      background: rgba(0, 100, 255, 0.1);
+    }
+
+    .cube-face.bottom {
+      transform: rotateX(-90deg) translateZ(100px);
+      background: rgba(255, 100, 0, 0.1);
+    }
+
+    @keyframes rotate {
+      from { transform: rotateX(-20deg) rotateY(0deg); }
+      to { transform: rotateX(340deg) rotateY(360deg); }
+    }
+
+    /* Cube Container */
+    .cube-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 400px;
+      position: relative;
+    }
+
+    .cube-hud {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .cube-grid {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(179, 0, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(179, 0, 255, 0.1) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* HUD Overlay */
+    .hud-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .grid-lines {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(0, 247, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 247, 255, 0.1) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    .scanline {
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(to bottom, 
+        transparent, 
+        rgba(0, 247, 255, 0.5), 
+        transparent);
+      animation: scan 8s linear infinite;
+    }
+
+    @keyframes scan {
+      0% { top: 0%; opacity: 0; }
+      1% { opacity: 1; }
+      99% { opacity: 1; }
+      100% { top: 100%; opacity: 0; }
+    }
+
+    .hud-element {
+      position: absolute;
+      border: 1px solid var(--hud-green);
+      border-radius: 3px;
+      padding: 5px 10px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.8rem;
+      color: var(--hud-green);
+      background-color: rgba(0, 255, 136, 0.1);
+    }
+
+    /* SciFi Button */
+    .btn-custom {
+      width: 220px;
+      height: 50px;
+      border-radius: 0;
+      background: linear-gradient(135deg, 
+        rgba(0, 247, 255, 0.2), 
+        rgba(179, 0, 255, 0.2));
+      border: 1px solid var(--neon-blue);
+      color: var(--terminal-text);
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 500;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      box-shadow: 0 0 20px rgba(0, 247, 255, 0.3);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      text-transform: uppercase;
+      margin-top: 30px;
+    }
+
+    .btn-custom:hover {
+      background: linear-gradient(135deg, 
+        rgba(0, 247, 255, 0.3), 
+        rgba(179, 0, 255, 0.3));
+      box-shadow: 0 0 30px rgba(0, 247, 255, 0.5);
+      transform: translateY(-2px);
+      color: white;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 50px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.9rem;
+      color: var(--terminal-text);
+      opacity: 0.7;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 992px) {
+      .camera-window {
+        width: 100%;
+        height: 400px;
+      }
+      
+      .title {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .camera-window {
+        height: 300px;
+      }
+      
+      .title {
+        font-size: 1.5rem;
+      }
+      
+      .scene {
+        width: 150px;
+        height: 150px;
+        perspective: 400px;
+      }
+      
+      .cube-face {
+        width: 150px;
+        height: 150px;
+      }
+      
+      .cube-face.front {
+        transform: rotateY(0deg) translateZ(75px);
+      }
+      
+      .cube-face.back {
+        transform: rotateY(180deg) translateZ(75px);
+      }
+      
+      .cube-face.right {
+        transform: rotateY(90deg) translateZ(75px);
+      }
+      
+      .cube-face.left {
+        transform: rotateY(-90deg) translateZ(75px);
+      }
+      
+      .cube-face.top {
+        transform: rotateX(90deg) translateZ(75px);
+      }
+      
+      .cube-face.bottom {
+        transform: rotateX(-90deg) translateZ(75px);
+      }
+    }
+  </style>
+  <title>AI VISION | Real-Time Object Detection</title>
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="title">AI VISION DETECTION SYSTEM</h1>
+    
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="cube-container">
+          <div class="cube-hud">
+            <div class="cube-grid"></div>
+          </div>
+          <div class="scene">
+            <div class="cube">
+              <div class="cube-face front">AI</div>
+              <div class="cube-face back">VISION</div>
+              <div class="cube-face right">YOLO</div>
+              <div class="cube-face left">DEEP</div>
+              <div class="cube-face top">ML</div>
+              <div class="cube-face bottom">CV</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-6 camera-container">
+        <img id="video_feed" class="camera-window" src="{{ url_for('video_feed') }}">
+        <div class="hud-overlay">
+          <div class="grid-lines"></div>
+          <div class="scanline"></div>
+          <div class="hud-element" style="top: 10px; left: 20px;">SYSTEM ACTIVE</div>
+          <div class="hud-element" style="bottom: 10px; right: 20px;">YOLOv7 ENGAGED</div>
+          <div class="hud-element" style="top: 10px; right: 20px;">LIVE</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="text-center">
+      <a href="/" class="btn btn-custom">
+        <i class="fas fa-arrow-left me-2"></i> RETURN
+      </a>
+    </div>
+    
+    <div class="footer">
+      <span class="text-success">OPERATIONAL</span>
+    </div>
+  </div>
+
+  <!-- Font Awesome for icons -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</body>
+
+</html>
