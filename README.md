@@ -128,7 +128,7 @@ The webcam feed uses **MJPEG streaming** — a generator function continuously y
 
 ---
 
-## 🎛️ Configuration
+##  Configuration
 
 **Confidence threshold** — controls detection sensitivity (default: `0.3`):
 ```python
@@ -147,7 +147,7 @@ cap = cv2.VideoCapture(0)
 
 ---
 
-## 📦 Model Files
+##  Model Files
 
 | File | Description |
 |------|-------------|
@@ -159,6 +159,6 @@ cap = cv2.VideoCapture(0)
 
 ---
 
-## 📄 License
+##  License
 
 This project uses YOLOv7, which is subject to its own license. See the [YOLOv7 repository](https://github.com/WongKinYiu/yolov7) for details.
