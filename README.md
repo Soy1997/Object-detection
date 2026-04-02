@@ -1,6 +1,5 @@
 # YOLOv7 Object Detection System
-![Uploading Screenshot 2026-04-02 at 10.05.35 AM.png…]()
-
+<img width="1710" height="1112" alt="Screenshot 2026-04-02 at 10 05 35 AM" src="https://github.com/user-attachments/assets/5688a674-e3d8-46f4-81c9-ce6b0af97713" />
 
 Real-time and static object detection powered by **YOLOv7**, **OpenCV**, and **Flask** — available as standalone Python scripts or a full browser-based web app.
 
