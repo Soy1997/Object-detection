@@ -3,18 +3,18 @@
 Real-time and static object detection powered by **YOLOv7**, **OpenCV**, and **Flask** — available as standalone Python scripts or a full browser-based web app.
 
 
-## ✨ Features
+##  Features
 
-- 🖼️ **Image Detection** — Upload any image and detect objects instantly
-- 📷 **Real-Time Webcam Detection** — Live object detection via your webcam
-- 🌐 **Web Interface** — Sci-fi themed browser UI (no command line required)
-- ⚡ **Fast Inference** — Single forward pass detection with YOLOv7
-- 🧠 **Smart Model Caching** — Model loads once, reused across all requests
-- 🔒 **Secure File Handling** — Path traversal protection on all uploads
-- 🎯 **80 Object Classes** — Detects people, cars, animals, furniture, and more (COCO dataset)
+-  **Image Detection** — Upload any image and detect objects instantly
+-  **Real-Time Webcam Detection** — Live object detection via your webcam
+-  **Web Interface** — Sci-fi themed browser UI (no command line required)
+-  **Fast Inference** — Single forward pass detection with YOLOv7
+-  **Smart Model Caching** — Model loads once, reused across all requests
+-  **Secure File Handling** — Path traversal protection on all uploads
+-  **80 Object Classes** — Detects people, cars, animals, furniture, and more (COCO dataset)
 
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 ├── 01_ImageObjectDetection.py      # Standalone image detection script
@@ -81,7 +81,7 @@ python 03_RealTimeObjectDetection.py
 
 ---
 
-## 🔬 How It Works
+##  How It Works
 
 ### Detection Pipeline (5 Steps)
 
@@ -115,7 +115,7 @@ The webcam feed uses **MJPEG streaming** — a generator function continuously y
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 | Library | Role |
 |---------|------|
